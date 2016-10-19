@@ -6,7 +6,7 @@ set tabstop=4 " 画面上でタブ文字が占める幅
 set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
-set shiftwidth=4 " smartindentで増減する幅
+set shiftwidth=2 " smartindentで増減する幅
 
 " serch
 set incsearch
@@ -39,8 +39,8 @@ inoremap <silent> jj <ESC>
 inoremap <silent> <C-j> j
 
 " 行頭・行末移動方向をキーの相対位置にあわせる
-nnoremap 0 $ 
-nnoremap 1 0 
+nnoremap 0 $
+nnoremap 1 0
 
 " 挿入モードでのカーソル移動
 inoremap <C-n> <Down>
@@ -53,6 +53,8 @@ inoremap <C-e> <End>
 inoremap <C-u> <C-o>d0
 " カーソルから行末まで削除
 inoremap <C-k> <C-o>D
+" 補完
+inoremap <C-l> <C-p>
 
 " カーソルから行頭までヤンク
 "inoremap <silent> <C-y>e <Esc>ly0<Insert>
@@ -65,7 +67,7 @@ inoremap [ []<Left>
 inoremap ( ()<Left>
 inoremap " ""<Left>
 inoremap ' ''<Left>
-inoremap <> <><Left>
+inoremap < <><Left>
 
 "表示設定
 "set number
@@ -73,8 +75,9 @@ set title
 
 " color scheme settings
 syntax on
-"colorscheme molokai
 set t_Co=256
+
+" indentLine settings
 
 "dein Scripts-----------------------------
 if &compatible
@@ -90,7 +93,14 @@ call dein#begin('/Users/nakamura.k/.cache/dein')
 " Let dein manage dein
 " Required:
 call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/unite.vim')
 call dein#add('isRuslan/vim-es6')
+call dein#add('tomasr/molokai')
+call dein#add('bronson/vim-trailing-whitespace')
+call dein#add('Yggdroot/indentLine')
+call dein#add('scrooloose/nerdtree')
+call dein#add('tpope/vim-endwise')
+
 
 " Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')

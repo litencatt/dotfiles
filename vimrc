@@ -2,8 +2,8 @@ set backspace=indent,eol,start
 
 " tab/indent
 set expandtab " タブ入力を複数の空白入力に置き換える
-set tabstop=4 " 画面上でタブ文字が占める幅
-set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set tabstop=2 " 画面上でタブ文字が占める幅
+set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 set shiftwidth=2 " smartindentで増減する幅
@@ -19,6 +19,9 @@ nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>"
 set showmatch " 括弧の対応関係を一瞬表示するi"
 set wildmenu " コマンドモードの保管
 set history=5000 " コマンド履歴数
+
+" Turn off paste mode when leaving insert
+autocmd InsertLeave * set nopaste
 
 " paste ignore auto indent settings
 if &term =~ "xterm"
@@ -85,10 +88,10 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/Users/nakamura.k/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=/Users/nakamurakousuke/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-call dein#begin('/Users/nakamura.k/.cache/dein')
+call dein#begin('/Users/nakamurakousuke/.cache/dein')
 
 " Let dein manage dein
 " Required:

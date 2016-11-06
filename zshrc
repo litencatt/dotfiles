@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/nakamura.k/.oh-my-zsh
+export ZSH=/Users/nakamurakousuke/.oh-my-zsh
 
 # Add path of coreutils symbolic link
 export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH

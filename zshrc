@@ -14,6 +14,8 @@ eval "$(rbenv init -)"
 # Add nodebrew path
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
+export LESSCHARSET=utf-8
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -100,6 +102,9 @@ alias find=gfind
 alias xargs=gxargs
 # ghq list to peco
 alias gh='cd $(ghq list -p | peco)'
+
+alias ctags="`brew --prefix`/user/local/bin/ctags"
+alias gtags="gtags --gtagslabel=pygments"
 
 #pecoでhistory検索
 function peco-select-history() {

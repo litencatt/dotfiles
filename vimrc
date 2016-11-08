@@ -2,8 +2,8 @@ set backspace=indent,eol,start
 
 " tab/indent
 set expandtab " タブ入力を複数の空白入力に置き換える
-set tabstop=4 " 画面上でタブ文字が占める幅
-set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set tabstop=2 " 画面上でタブ文字が占める幅
+set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 set shiftwidth=2 " smartindentで増減する幅
@@ -70,15 +70,38 @@ inoremap ' ''<Left>
 inoremap < <><Left>
 
 "表示設定
-"set number
+set number
 set title
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 
 " color scheme settings
 syntax on
 set t_Co=256
 
-" indentLine settings
 
+" NERDTree remap
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
+" gtags
+" 検索結果Windowを閉じる
+nnoremap <C-q> <C-w><C-w><C-w>q
+" Grep 準備
+"nnoremap <C-g> :Gtags -g
+" このファイルの関数一覧
+nnoremap <C-l> :Gtags -f %<CR><CR>
+" カーソル以下の定義元を探す
+"nnoremap <C-j> :Gtags <C-r><C-w><CR><CR>
+map <C-j> :GtagsCursor<CR><CR>
+" カーソル以下の使用箇所を探す
+nnoremap <C-k> :Gtags -r <C-r><C-w><CR><CR>
+" 次の検索結果
+nnoremap <C-n> :cn<CR>
+" 前の検索結果
+nnoremap <C-p> :cp<CR>
+
+"-----------------------------------------
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
@@ -100,7 +123,8 @@ call dein#add('bronson/vim-trailing-whitespace')
 call dein#add('Yggdroot/indentLine')
 call dein#add('scrooloose/nerdtree')
 call dein#add('tpope/vim-endwise')
-
+call dein#add('kurocode25/mdforvim')
+call dein#add('vim-scripts/gtags.vim')
 
 " Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')

@@ -1,12 +1,20 @@
 set backspace=indent,eol,start
 
 " tab/indent
-set expandtab " タブ入力を複数の空白入力に置き換える
 set tabstop=4 " 画面上でタブ文字が占める幅
+set shiftwidth=4 " smartindentで増減する幅
 set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent " 改行時に前の行のインデントを継続する
+set expandtab " タブ入力を複数の空白入力に置き換える
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
-set shiftwidth=4 " smartindentで増減する幅
+
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.py  setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.rb  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.md  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
 
 " serch
 set incsearch
@@ -19,6 +27,10 @@ nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>"
 set showmatch " 括弧の対応関係を一瞬表示するi"
 set wildmenu " コマンドモードの保管
 set history=5000 " コマンド履歴数
+
+" paste seggins
+set clipboard+=unnamed
+set clipboard+=autoselect
 
 " paste ignore auto indent settings
 if &term =~ "xterm"
@@ -80,15 +92,14 @@ set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 syntax on
 set t_Co=256
 
-
 " NERDTree remap
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 " gtags
 " 検索結果Windowを閉じる
-nnoremap <C-q> <C-w><C-w><C-w>q
+nnoremap <C-r> <C-w><C-w><C-w>q
 " Grep 準備
-"nnoremap <C-g> :Gtags -g
+nnoremap <C-g> :Gtags -g
 " このファイルの関数一覧
 nnoremap <C-l> :Gtags -f %<CR><CR>
 " カーソル以下の定義元を探す
@@ -125,6 +136,7 @@ call dein#add('scrooloose/nerdtree')
 call dein#add('tpope/vim-endwise')
 call dein#add('kurocode25/mdforvim')
 call dein#add('vim-scripts/gtags.vim')
+call dein#add('kana/vim-fakeclip')
 
 " Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')

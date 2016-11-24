@@ -1,4 +1,9 @@
+syntax on
+set noswapfile
+
 set backspace=indent,eol,start
+set scrolloff=5
+set ruler
 
 " tab/indent
 set tabstop=4 " 画面上でタブ文字が占める幅
@@ -89,7 +94,6 @@ set fileencoding=utf-8
 set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 
 " color scheme settings
-syntax on
 set t_Co=256
 
 " NERDTree remap
@@ -97,7 +101,7 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 " gtags
 " 検索結果Windowを閉じる
-nnoremap <C-r> <C-w><C-w><C-w>q
+nnoremap <C-t> <C-w><C-w><C-w>q
 " Grep 準備
 nnoremap <C-g> :Gtags -g
 " このファイルの関数一覧
@@ -112,6 +116,12 @@ nnoremap <C-n> :cn<CR>
 " 前の検索結果
 nnoremap <C-p> :cp<CR>
 
+
+let g:neocomplete#enable_at_startup = 1
+" Plugin key-mappings.  " <C-k>でsnippetの展開
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
 "-----------------------------------------
 "dein Scripts-----------------------------
 if &compatible
@@ -119,10 +129,10 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/Users/nakamura.k/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-call dein#begin('/Users/nakamura.k/.cache/dein')
+call dein#begin('$HOME/.cache/dein')
 
 " Let dein manage dein
 " Required:
@@ -141,6 +151,7 @@ call dein#add('kana/vim-fakeclip')
 " Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/neocomplete')
 
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' })

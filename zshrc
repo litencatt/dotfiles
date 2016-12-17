@@ -13,6 +13,7 @@ eval "$(rbenv init -)"
 
 # Add nodebrew path
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/.composer/vendor/bin:$PATH
 
 export LESSCHARSET=utf-8
 
@@ -145,3 +146,5 @@ function peco-src () {
 }
 zle -N peco-src
 bindkey '^l' peco-src
+
+function git(){hub "$@"} 

@@ -114,6 +114,16 @@ nnoremap <C-n> :cn<CR>
 " 前の検索結果
 nnoremap <C-p> :cp<CR>
 
+let g:neocomplete#enable_at_startup = 1
+
+" quickrun.vim
+let g:quickrun_config = {
+\    '_': {
+\        'outputter/buffer/split': ':botright',
+\        'outputter/buffer/close_on_empty': ':1',
+\    },
+\}
+
 "-----------------------------------------
 "dein Scripts-----------------------------
 if &compatible
@@ -139,6 +149,7 @@ call dein#add('tpope/vim-endwise')
 call dein#add('kurocode25/mdforvim')
 call dein#add('vim-scripts/gtags.vim')
 call dein#add('kana/vim-fakeclip')
+call dein#add('thinca/vim-quickrun')
 
 " Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')

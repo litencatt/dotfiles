@@ -121,6 +121,8 @@ let g:quickrun_config = {
 \    '_': {
 \        'outputter/buffer/split': ':botright',
 \        'outputter/buffer/close_on_empty': ':1',
+\        'runner': 'vimproc',
+\        'runner/vimproc/updatetime': '60',
 \    },
 \}
 
@@ -150,11 +152,10 @@ call dein#add('kurocode25/mdforvim')
 call dein#add('vim-scripts/gtags.vim')
 call dein#add('kana/vim-fakeclip')
 call dein#add('thinca/vim-quickrun')
-
-" Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/neocomplete')
+call dein#add('Shougo/vimproc')
 
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' })

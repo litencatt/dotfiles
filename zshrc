@@ -9,9 +9,11 @@ export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
 
-# Add rbenv path
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+export PATH="${HOME}/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
 
 ZSH_THEME="robbyrussell"
 

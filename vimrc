@@ -1,4 +1,9 @@
+syntax on
+set noswapfile
+
 set backspace=indent,eol,start
+set scrolloff=5
+set ruler
 
 " tab/indent
 set tabstop=4 " 画面上でタブ文字が占める幅
@@ -14,6 +19,7 @@ augroup fileTypeIndent
     autocmd BufNewFile,BufRead *.py  setlocal tabstop=4 softtabstop=4 shiftwidth=4
     autocmd BufNewFile,BufRead *.rb  setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.md  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.erb setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
 " serch
@@ -88,10 +94,10 @@ set number
 set title
 set encoding=utf-8
 set fileencoding=utf-8
-set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+""set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+set fileencodings=euc-jp,utf-8
 
 " color scheme settings
-syntax on
 set t_Co=256
 
 " NERDTree remap
@@ -99,16 +105,16 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 " gtags
 " 検索結果Windowを閉じる
-nnoremap <C-r> <C-w><C-w><C-w>q
+nnoremap <C-t> <C-w><C-w><C-w>q
 " Grep 準備
-nnoremap <C-g> :Gtags -g
+"nnoremap <C-g> :Gtags -g
 " このファイルの関数一覧
 nnoremap <C-l> :Gtags -f %<CR><CR>
 " カーソル以下の定義元を探す
-"nnoremap <C-j> :Gtags <C-r><C-w><CR><CR>
-map <C-j> :GtagsCursor<CR><CR>
+nnoremap <C-j> :Gtags <C-r><C-w><CR><CR>
+"map <C-j> :GtagsCursor<CR><CR>
 " カーソル以下の使用箇所を探す
-nnoremap <C-k> :Gtags -r <C-r><C-w><CR><CR>
+nnoremap <C-i> :Gtags -r <C-r><C-w><CR><CR>
 " 次の検索結果
 nnoremap <C-n> :cn<CR>
 " 前の検索結果
@@ -119,7 +125,7 @@ let g:neocomplete#enable_at_startup = 1
 " quickrun.vim
 let g:quickrun_config = {
 \    '_': {
-\        'outputter/buffer/split': ':botright',
+\        'outputter/buffer/split': ':botright 8sp',
 \        'outputter/buffer/close_on_empty': ':1',
 \        'runner': 'vimproc',
 \        'runner/vimproc/updatetime': '60',

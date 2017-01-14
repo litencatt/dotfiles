@@ -28,6 +28,11 @@ alias gh='cd $(ghq list -p | peco)'
 alias ctags="`brew --prefix`/user/local/bin/ctags"
 alias gtags="gtags --gtagslabel=pygments"
 
+
+setopt hist_ignore_dups
+setopt hist_ignore_space
+
+
 #pecoでhistory検索
 function peco-select-history() {
   BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")

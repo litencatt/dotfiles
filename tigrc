@@ -1,0 +1,8 @@
+# 画面を垂直方向に分割する
+#set vertical-split = yes
+# 横分割に強制する
+ set vertical-split = no
+# デフォルト値
+# set vertical-split = auto
+
+bind status V !git commit -v

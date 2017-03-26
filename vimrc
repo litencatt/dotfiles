@@ -6,12 +6,12 @@ set scrolloff=5
 set ruler
 
 " tab/indent
-set tabstop=4 " 画面上でタブ文字が占める幅
-set shiftwidth=4 " smartindentで増減する幅
-set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
-set autoindent " 改行時に前の行のインデントを継続する
-set expandtab " タブ入力を複数の空白入力に置き換える
-set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
+set tabstop=2     " 画面上でタブ文字が占める幅
+set shiftwidth=2  " smartindentで増減する幅
+set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set autoindent    " 改行時に前の行のインデントを継続する
+set expandtab     " タブ入力を複数の空白入力に置き換える
+set smartindent   " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 
 augroup fileTypeIndent
     autocmd!
@@ -21,6 +21,18 @@ augroup fileTypeIndent
     autocmd BufNewFile,BufRead *.md  setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.erb setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
+autocmd BufWrite *.{rb} set fenc=utf-8
+
+"表示設定
+set number
+set title
+set encoding=utf-8
+set fileencoding=utf-8
+""set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+set fileencodings=utf-8,euc-jp
+
+" color scheme settings
+set t_Co=256
 
 " serch
 set incsearch
@@ -89,17 +101,6 @@ inoremap " ""<Left>
 inoremap ' ''<Left>
 inoremap < <><Left>
 
-"表示設定
-set number
-set title
-set encoding=utf-8
-set fileencoding=utf-8
-""set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
-set fileencodings=euc-jp,utf-8
-
-" color scheme settings
-set t_Co=256
-
 " NERDTree remap
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
@@ -132,54 +133,6 @@ let g:quickrun_config = {
 \    },
 \}
 
-"vim comfotable tab settings
-"ref: http://qiita.com/wadako111/items/755e753677dd72d8036d
-"-----------------------------------------
-" Anywhere SID.
-function! s:SID_PREFIX()
-  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-
-" Set tabline.
-function! s:my_tabline()  "{{{
-  let s = ''
-  for i in range(1, tabpagenr('$'))
-    let bufnrs = tabpagebuflist(i)
-    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
-    let no = i  " display 0-origin tabpagenr.
-    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
-    let title = fnamemodify(bufname(bufnr), ':t')
-    let title = '[' . title . ']'
-    let s .= '%'.i.'T'
-    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= no . ':' . title
-    let s .= mod
-    let s .= '%#TabLineFill# '
-  endfor
-  let s .= '%#TabLineFill#%T%=%#TabLine#'
-  return s
-endfunction "}}}
-let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
-set showtabline=2 " 常にタブラインを表示
-
-" The prefix key.
-nnoremap    [Tag]   <Nop>
-nmap    t [Tag]
-" Tab jump
-for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
-endfor
-" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
-
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
-" tc 新しいタブを一番右に作る
-map <silent> [Tag]x :tabclose<CR>
-" tx タブを閉じる
-map <silent> [Tag]n :tabnext<CR>
-" tn 次のタブ
-map <silent> [Tag]p :tabprevious<CR>
-" tp 前のタブ
-"-----------------------------------------
 
 
 "-----------------------------------------
@@ -212,6 +165,7 @@ call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/neocomplete')
 call dein#add('Shougo/vimproc')
+call dein#add('slim-template/vim-slim')
 
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' })

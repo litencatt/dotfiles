@@ -4,7 +4,13 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Add path of coreutils symbolic link
+typeset -U path PATH
+autoload -U compinit
+compinit
+
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+
 export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
@@ -22,12 +28,12 @@ plugins=(git ruby osx bundler brew rails emoji-clock)
 source $ZSH/oh-my-zsh.sh
 
 alias vi=vim
-alias find=gfind
-alias xargs=gxargs
+#alias find=gfind
+#alias xargs=gxargs
 alias gh='cd $(ghq list -p | peco)'
 alias ctags="`brew --prefix`/user/local/bin/ctags"
 alias gtags="gtags --gtagslabel=pygments"
-
+alias be='bundle exec'
 
 setopt hist_ignore_dups
 setopt hist_ignore_space

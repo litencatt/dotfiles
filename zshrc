@@ -11,15 +11,15 @@ compinit
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
-export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-export PATH=$HOME/.composer/vendor/bin:$PATH
+#export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+#export PATH=$HOME/.nodebrew/current/bin:$PATH
+#export PATH=$HOME/.composer/vendor/bin:$PATH
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-export PATH="${HOME}/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
+#export PATH="${HOME}/.pyenv/bin:$PATH"
+#eval "$(pyenv init -)"
 
 ZSH_THEME="robbyrussell"
 
@@ -30,10 +30,12 @@ source $ZSH/oh-my-zsh.sh
 alias vi=vim
 #alias find=gfind
 #alias xargs=gxargs
-alias gh='cd $(ghq list -p | peco)'
+#alias gh='cd $(ghq list -p | peco)'
 alias ctags="`brew --prefix`/user/local/bin/ctags"
 alias gtags="gtags --gtagslabel=pygments"
 alias be='bundle exec'
+alias dk=docker
+alias gco='git checkout'
 
 setopt hist_ignore_dups
 setopt hist_ignore_space

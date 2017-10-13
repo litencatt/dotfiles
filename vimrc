@@ -20,6 +20,7 @@ augroup fileTypeIndent
     autocmd BufNewFile,BufRead *.rb  setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.md  setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.erb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.js  setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 autocmd BufWrite *.{rb} set fenc=utf-8
 
@@ -42,7 +43,7 @@ set hlsearch
 " ESCキー2度押しでハイライトの切り替え
 nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>"
 
-set showmatch " 括弧の対応関係を一瞬表示するi"
+set showmatch " 括弧の対応関係を一瞬表示する"
 set wildmenu " コマンドモードの保管
 set history=5000 " コマンド履歴数
 
@@ -68,7 +69,7 @@ endif
 
 " insertモードから抜ける
 inoremap <silent> jj <ESC>
-inoremap <silent> <C-j> j
+"inoremap <silent> <C-j> j
 
 " 行頭・行末移動方向をキーの相対位置にあわせる
 nnoremap 0 $
@@ -99,7 +100,6 @@ inoremap [ []<Left>
 inoremap ( ()<Left>
 inoremap " ""<Left>
 inoremap ' ''<Left>
-inoremap < <><Left>
 
 " NERDTree remap
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
@@ -121,18 +121,25 @@ nnoremap <C-n> :cn<CR>
 " 前の検索結果
 nnoremap <C-p> :cp<CR>
 
-let g:neocomplete#enable_at_startup = 1
+" vim tab settings
+nnoremap sn gt
+nnoremap sp gT
+nnoremap st :<C-u>tabnew<CR>
 
+" Change Emmet key binding
+let g:user_emmet_leader_key = '<C-y>'
+
+let g:neocomplete#enable_at_startup = 1
+nnoremap qr :Quick<CR>
 " quickrun.vim
 let g:quickrun_config = {
 \    '_': {
 \        'outputter/buffer/split': ':botright 8sp',
 \        'outputter/buffer/close_on_empty': ':1',
 \        'runner': 'vimproc',
-\        'runner/vimproc/updatetime': '60',
+\        'runner/vimproc/updatetime': '5',
 \    },
 \}
-
 
 
 "-----------------------------------------
@@ -151,21 +158,25 @@ call dein#begin('$HOME/.cache/dein')
 " Required:
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/unite.vim')
-call dein#add('isRuslan/vim-es6')
 call dein#add('tomasr/molokai')
 call dein#add('bronson/vim-trailing-whitespace')
 call dein#add('Yggdroot/indentLine')
 call dein#add('scrooloose/nerdtree')
 call dein#add('tpope/vim-endwise')
-call dein#add('kurocode25/mdforvim')
+
 call dein#add('vim-scripts/gtags.vim')
 call dein#add('kana/vim-fakeclip')
-call dein#add('thinca/vim-quickrun')
+
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/neocomplete')
 call dein#add('Shougo/vimproc')
+call dein#add('thinca/vim-quickrun')
+
+call dein#add('isRuslan/vim-es6')
 call dein#add('slim-template/vim-slim')
+call dein#add('posva/vim-vue')
+call dein#add('mattn/emmet-vim')
 
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' })

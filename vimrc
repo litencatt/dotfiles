@@ -1,24 +1,36 @@
 syntax on
 set noswapfile
 
+set number
+set title
+set encoding=utf-8
+""set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+""set fileencodings=sjis,euc-jp,utf-8
+set fileencodings=euc-jp,utf-8
+""set fileencodings=utf-8
+
 set backspace=indent,eol,start
 set scrolloff=5
 set ruler
 
 " tab/indent
-set tabstop=4 " 画面上でタブ文字が占める幅
-set shiftwidth=4 " smartindentで増減する幅
-set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set tabstop=2 " 画面上でタブ文字が占める幅
+set shiftwidth=2 " smartindentで増減する幅
+set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent " 改行時に前の行のインデントを継続する
 set expandtab " タブ入力を複数の空白入力に置き換える
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 
 augroup fileTypeIndent
     autocmd!
-    autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
-    autocmd BufNewFile,BufRead *.py  setlocal tabstop=4 softtabstop=4 shiftwidth=4
-    autocmd BufNewFile,BufRead *.rb  setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.md  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.php   setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.py    setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.hbs   setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.rb    setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.md    setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.erb   setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.scss  setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead Gemfile setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
 " serch
@@ -33,6 +45,8 @@ set showmatch " 括弧の対応関係を一瞬表示するi"
 set wildmenu " コマンドモードの保管
 set history=5000 " コマンド履歴数
 
+" Turn off paste mode when leaving insert
+autocmd InsertLeave * set nopaste
 " paste seggins
 set clipboard+=unnamed
 set clipboard+=autoselect
@@ -86,13 +100,6 @@ inoremap " ""<Left>
 inoremap ' ''<Left>
 inoremap < <><Left>
 
-"表示設定
-set number
-set title
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
-
 " color scheme settings
 set t_Co=256
 
@@ -116,11 +123,21 @@ nnoremap <C-n> :cn<CR>
 " 前の検索結果
 nnoremap <C-p> :cp<CR>
 
+" vimの新規タブ作成
+nnoremap st :<C-u>tabnew<CR>
+nnoremap sn gt
+nnoremap sp gT
 
 let g:neocomplete#enable_at_startup = 1
 " Plugin key-mappings.  " <C-k>でsnippetの展開
 "imap <C-m> <Plug>(neosnippet_expand_or_jump)
 "smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+
+" syntastic settings
+""let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+""let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_quiet_messages = {'level': 'warnings'}
 
 "-----------------------------------------
 "dein Scripts-----------------------------
@@ -138,7 +155,6 @@ call dein#begin('$HOME/.cache/dein')
 " Required:
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/unite.vim')
-call dein#add('isRuslan/vim-es6')
 call dein#add('tomasr/molokai')
 call dein#add('bronson/vim-trailing-whitespace')
 call dein#add('Yggdroot/indentLine')
@@ -148,7 +164,16 @@ call dein#add('kurocode25/mdforvim')
 call dein#add('vim-scripts/gtags.vim')
 call dein#add('kana/vim-fakeclip')
 
-" Add or remove your plugins here:
+" syntax highlights
+call dein#add('slim-template/vim-slim')
+call dein#add('isRuslan/vim-es6')
+call dein#add('posva/vim-vue')
+call dein#add('kchmck/vim-coffee-script')
+
+" lint
+call dein#add('scrooloose/syntastic')
+
+" code snipet
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/neocomplete')

@@ -15,6 +15,8 @@ eval "$(rbenv init -)"
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
 
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
 export LESSCHARSET=utf-8
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -107,6 +109,10 @@ alias gh='cd $(ghq list -p | peco)'
 alias ctags="`brew --prefix`/user/local/bin/ctags"
 alias gtags="gtags --gtagslabel=pygments"
 
+alias gco="git checkout"
+alias be="bundle exec"
+alias dk="docker"
+
 #pecoでhistory検索
 function peco-select-history() {
   BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
@@ -147,4 +153,34 @@ function peco-src () {
 zle -N peco-src
 bindkey '^l' peco-src
 
-function git(){hub "$@"} 
+# git branch peco
+#function peco-git-recent-branches () {
+#    local selected_branch=$(git for-each-ref --format='%(refname)' --sort=-committerdate refs/heads | \
+#        perl -pne 's{^refs/heads/}{}' | \
+#        peco)
+#    if [ -n "$selected_branch" ]; then
+#        BUFFER="gco ${selected_branch}"
+#        zle accept-line
+#    fi
+#    zle clear-screen
+#}
+#zle -N peco-git-recent-branches
+#bindkey "^br" peco-git-recent-branches
+
+
+# hub settings
+function git(){hub "$@"}
+
+# pepabo-docker-swarm
+function swarm() {
+  export DOCKER_HOST="tcp://docker.pepabo.com:3376"
+  export DOCKER_CERT_PATH="$HOME/.ghq/git.pepabo.com/tech/docker-chef/client_keys"
+  export DOCKER_API_VERSION=1.23
+  export DOCKER_TLS_VERIFY="1"
+}
+function dfm() {
+  unset DOCKER_HOST
+  unset DOCKER_CERT_PATH
+  unset DOCKER_API_VERSION
+  unset DOCKER_TLS_VERIFY
+}

@@ -67,7 +67,7 @@ endif
 
 " insertモードから抜ける
 inoremap <silent> jj <ESC>
-inoremap <silent> <C-j> j
+""inoremap <silent> <C-j> j
 
 " 行頭・行末移動方向をキーの相対位置にあわせる
 nnoremap 0 $

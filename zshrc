@@ -19,6 +19,8 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 export LESSCHARSET=utf-8
 
+export EDITOR=vim
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes

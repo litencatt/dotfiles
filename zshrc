@@ -156,18 +156,18 @@ zle -N peco-src
 bindkey '^l' peco-src
 
 # git branch peco
-#function peco-git-recent-branches () {
-#    local selected_branch=$(git for-each-ref --format='%(refname)' --sort=-committerdate refs/heads | \
-#        perl -pne 's{^refs/heads/}{}' | \
-#        peco)
-#    if [ -n "$selected_branch" ]; then
-#        BUFFER="gco ${selected_branch}"
-#        zle accept-line
-#    fi
-#    zle clear-screen
-#}
-#zle -N peco-git-recent-branches
-#bindkey "^br" peco-git-recent-branches
+function peco-git-recent-branches () {
+    local selected_branch=$(git for-each-ref --format='%(refname)' --sort=-committerdate refs/heads | \
+        perl -pne 's{^refs/heads/}{}' | \
+        peco)
+    if [ -n "$selected_branch" ]; then
+        BUFFER="gco ${selected_branch}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-git-recent-branches
+bindkey "^R^B" peco-git-recent-branches
 
 
 # hub settings

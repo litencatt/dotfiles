@@ -14,6 +14,8 @@ eval "$(rbenv init -)"
 # Add nodebrew path
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
+export GOPATH=$HOME/.ghq
+export PATH=$GOPATH/bin:$PATH
 
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
@@ -105,15 +107,23 @@ source $ZSH/oh-my-zsh.sh
 alias vi=vim
 alias find=gfind
 alias xargs=gxargs
-# ghq list to peco
+
 alias gh='cd $(ghq list -p | peco)'
 
 alias ctags="`brew --prefix`/user/local/bin/ctags"
 alias gtags="gtags --gtagslabel=pygments"
 
 alias gco="git checkout"
+alias gcom="git checkout master"
+
+alias vz="vi ~/.zshrc"
+alias rz="source ~/.zshrc"
+alias zr="source ~/.zshrc"
+
 alias be="bundle exec"
 alias dk="docker"
+alias vs="vagrant ssh"
+alias tf="terraform"
 
 #pecoでhistory検索
 function peco-select-history() {
@@ -124,24 +134,24 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
-# peco find directory
-function peco-find() {
-  local current_buffer=$BUFFER
-  local search_root=""
-  local file_path=""
-
-  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    search_root=`git rev-parse --show-toplevel`
-  else
-    search_root=`pwd`
-  fi
-  file_path="$(find ${search_root} -maxdepth 5 | peco)"
-  BUFFER="${current_buffer} ${file_path}"
-  CURSOR=$#BUFFER
-  zle clear-screen
-}
-zle -N peco-find
-bindkey '^]' peco-find
+## peco find directory
+#function peco-find() {
+#  local current_buffer=$BUFFER
+#  local search_root=""
+#  local file_path=""
+#
+#  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+#    search_root=`git rev-parse --show-toplevel`
+#  else
+#    search_root=`pwd`
+#  fi
+#  file_path="$(find ${search_root} -maxdepth 5 | peco)"
+#  BUFFER="${current_buffer} ${file_path}"
+#  CURSOR=$#BUFFER
+#  zle clear-screen
+#}
+#zle -N peco-find
+#bindkey '^\' peco-find
 
 # ghq list to peco
 function peco-src () {
@@ -167,8 +177,7 @@ function peco-git-recent-branches () {
     zle clear-screen
 }
 zle -N peco-git-recent-branches
-bindkey "^R^B" peco-git-recent-branches
-
+bindkey "^]" peco-git-recent-branches
 
 # hub settings
 function git(){hub "$@"}
@@ -186,3 +195,17 @@ function dfm() {
   unset DOCKER_API_VERSION
   unset DOCKER_TLS_VERIFY
 }
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+
+# ssh peco
+function peco-ssh () {
+    local ip=$(cat ~/.ghq/git.pepabo.com/muumuu-domain/terraform/terraform.tfstate | jq -r '.modules[].resources[].primary.attributes | [.access_ip_v4, .name] | @tsv' | grep muumuu-domain.com >> /tmp/hosts && cat /tmp/hosts | sort -k2 | peco | awk "{print \$1}")
+    if [ -n "$ip" ]; then
+        local user=$(echo centos\\nmuu-deploy\\nlitencatt\\nnakamu\\napp | peco)
+        BUFFER="ssh $user@$ip"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-ssh
+bindkey '^\' peco-ssh

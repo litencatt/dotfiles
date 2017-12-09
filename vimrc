@@ -6,8 +6,8 @@ set title
 set encoding=utf-8
 ""set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 ""set fileencodings=sjis,euc-jp,utf-8
-set fileencodings=euc-jp,utf-8
-""set fileencodings=utf-8
+""set fileencodings=euc-jp,utf-8
+set fileencodings=utf-8,euc-jp
 
 set backspace=indent,eol,start
 set scrolloff=5
@@ -32,6 +32,8 @@ augroup fileTypeIndent
     autocmd BufNewFile,BufRead *.scss  setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead Gemfile setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
+
+set backupskip=/tmp/*,/private/tmp/*
 
 " serch
 set incsearch

@@ -135,6 +135,16 @@ let g:neocomplete#enable_at_startup = 1
 "imap <C-m> <Plug>(neosnippet_expand_or_jump)
 "smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
+nnoremap qr :Quick<CR>
+" quickrun.vim
+let g:quickrun_config = {
+\    '_': {
+\        'outputter/buffer/split': ':botright 8sp',
+\        'outputter/buffer/close_on_empty': ':1',
+\        'runner': 'vimproc',
+\        'runner/vimproc/updatetime': '5',
+\    },
+\}
 
 " syntastic settings
 ""let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
@@ -171,6 +181,8 @@ call dein#add('slim-template/vim-slim')
 call dein#add('isRuslan/vim-es6')
 call dein#add('posva/vim-vue')
 call dein#add('kchmck/vim-coffee-script')
+call dein#add('zerowidth/vim-copy-as-rtf')
+call dein#add('hashivim/vim-hashicorp-tools')
 
 " lint
 call dein#add('scrooloose/syntastic')
@@ -179,6 +191,10 @@ call dein#add('scrooloose/syntastic')
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/neocomplete')
+
+" quickrun
+call dein#add('Shougo/vimproc')
+call dein#add('thinca/vim-quickrun')
 
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' })

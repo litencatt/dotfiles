@@ -7,11 +7,16 @@ export ZSH=$HOME/.oh-my-zsh
 # Add path of coreutils symbolic link
 export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 
-# Add rbenv path
+# rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-# Add nodebrew path
+# pyenv
+export PATH="${HOME}/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
 export GOPATH=$HOME/.ghq
@@ -124,6 +129,11 @@ alias be="bundle exec"
 alias dk="docker"
 alias vs="vagrant ssh"
 alias tf="terraform"
+
+# exercism completion settings
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+  . ~/.config/exercism/exercism_completion.zsh
+fi
 
 #pecoでhistory検索
 function peco-select-history() {

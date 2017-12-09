@@ -177,6 +177,8 @@ call dein#add('isRuslan/vim-es6')
 call dein#add('slim-template/vim-slim')
 call dein#add('posva/vim-vue')
 call dein#add('mattn/emmet-vim')
+call dein#add('zerowidth/vim-copy-as-rtf')
+call dein#add('hashivim/vim-hashicorp-tools')
 
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' })

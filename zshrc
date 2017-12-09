@@ -11,15 +11,16 @@ compinit
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
-#export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
-#export PATH=$HOME/.nodebrew/current/bin:$PATH
-#export PATH=$HOME/.composer/vendor/bin:$PATH
-
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-#export PATH="${HOME}/.pyenv/bin:$PATH"
-#eval "$(pyenv init -)"
+export PATH="${HOME}/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+#export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+#export PATH=$HOME/.nodebrew/current/bin:$PATH
+#export PATH=$HOME/.composer/vendor/bin:$PATH
 
 ZSH_THEME="robbyrussell"
 
@@ -36,10 +37,10 @@ alias gtags="gtags --gtagslabel=pygments"
 alias be='bundle exec'
 alias dk=docker
 alias gco='git checkout'
+alias tf='terraform'
 
 setopt hist_ignore_dups
 setopt hist_ignore_space
-
 
 #pecoでhistory検索
 function peco-select-history() {
@@ -80,3 +81,8 @@ function peco-src () {
 }
 zle -N peco-src
 bindkey '^l' peco-src
+
+# exercism completion settings
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+  . ~/.config/exercism/exercism_completion.zsh
+fi

@@ -120,6 +120,7 @@ alias gtags="gtags --gtagslabel=pygments"
 
 alias gco="git checkout"
 alias gcom="git checkout master"
+alias git delete merged branches"git branch --merged | grep -v '*' | xargs -I % git branch -d"
 
 alias vz="vi ~/.zshrc"
 alias rz="source ~/.zshrc"

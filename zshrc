@@ -193,18 +193,4 @@ bindkey "^]" peco-git-recent-branches
 # hub settings
 function git(){hub "$@"}
 
-# ssh peco
-function peco-ssh () {
-    rm /tmp/hosts
-    local ip=$(cat ~/.ghq/git.pepabo.com/muumuu-domain/terraform/terraform.tfstate | jq -r '.modules[].resources[].primary.attributes | [.access_ip_v4, .name] | @tsv' | grep -e muumuu-domain.com -e osaipo.jp >> /tmp/hosts && cat ~/.havana_hosts >> /tmp/hosts && cat /tmp/hosts | sort -k2 | peco | awk "{print \$1}")
-    if [ -n "$ip" ]; then
-        local user=$(echo litencatt\\nmuu-deploy\\ncentos\\nnakamu\\napp | peco)
-        BUFFER="ssh $user@$ip"
-        zle accept-line
-    fi
-    zle clear-screen
-}
-zle -N peco-ssh
-bindkey '^\' peco-ssh
-
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

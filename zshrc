@@ -4,23 +4,34 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+# https://github.com/robbyrussell/oh-my-zsh/issues/6835
+ZSH_DISABLE_COMPFIX=true
+
+HISTSIZE=100000
+SAVEHIST=100000
+
 # Add path of coreutils symbolic link
 export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+
+# for curl
+export PATH="/usr/local/opt/curl/bin:$PATH"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 # pyenv
-export PATH="${HOME}/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#export PATH="${HOME}/.pyenv/bin:$PATH"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
+#
+## go
+export GOPATH=$HOME/.go
+export PATH=$GOPATH/bin:$PATH
 
 # nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
-export GOPATH=$HOME/.ghq
-export PATH=$GOPATH/bin:$PATH
 
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
@@ -80,6 +91,7 @@ ZSH_THEME="robbyrussell"
 plugins=(git ruby osx bundler brew rails emoji-clock)
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.phpbrew/bashrc
 
 # User configuration
 
@@ -111,23 +123,30 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vi=vim
 alias find=gfind
-alias xargs=gxargs
-
-alias gh='cd $(ghq list -p | peco)'
+#alias xargs=gxargs
 
 alias ctags="`brew --prefix`/user/local/bin/ctags"
 alias gtags="gtags --gtagslabel=pygments"
 
-alias gco="git checkout"
-alias gcom="git checkout master"
-alias git delete merged branches"git branch --merged | grep -v '*' | xargs -I % git branch -d"
-
+# resource
 alias vz="vi ~/.zshrc"
 alias rz="source ~/.zshrc"
 alias zr="source ~/.zshrc"
 
+# git associations
+alias gco="git checkout"
+alias gcom="git checkout master"
+alias gdbranch="git branch --merged | grep -v '*' | xargs -n 1 git branch -d"
+alias dif="git diff"
+alias t="tig"
+alias get="ghq get"
+alias plog="git log --all --no-merges --date=iso --author="$(git config --get user.name)" --pretty='format:%C(green)%cd %C(red)%d %C(reset)%s'"
+alias gh-show="git browse"
+
+# infra
 alias be="bundle exec"
 alias dk="docker"
+alias dki="docker images"
 alias vs="vagrant ssh"
 alias tf="terraform"
 
@@ -144,25 +163,6 @@ function peco-select-history() {
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
-
-## peco find directory
-#function peco-find() {
-#  local current_buffer=$BUFFER
-#  local search_root=""
-#  local file_path=""
-#
-#  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-#    search_root=`git rev-parse --show-toplevel`
-#  else
-#    search_root=`pwd`
-#  fi
-#  file_path="$(find ${search_root} -maxdepth 5 | peco)"
-#  BUFFER="${current_buffer} ${file_path}"
-#  CURSOR=$#BUFFER
-#  zle clear-screen
-#}
-#zle -N peco-find
-#bindkey '^\' peco-find
 
 # ghq list to peco
 function peco-src () {
@@ -193,26 +193,12 @@ bindkey "^]" peco-git-recent-branches
 # hub settings
 function git(){hub "$@"}
 
-# pepabo-docker-swarm
-function swarm() {
-  export DOCKER_HOST="tcp://docker.pepabo.com:3376"
-  export DOCKER_CERT_PATH="$HOME/.ghq/git.pepabo.com/tech/docker-chef/client_keys"
-  export DOCKER_API_VERSION=1.23
-  export DOCKER_TLS_VERIFY="1"
-}
-function dfm() {
-  unset DOCKER_HOST
-  unset DOCKER_CERT_PATH
-  unset DOCKER_API_VERSION
-  unset DOCKER_TLS_VERIFY
-}
-export PATH="/usr/local/opt/openssl/bin:$PATH"
-
 # ssh peco
 function peco-ssh () {
-    local ip=$(cat ~/.ghq/git.pepabo.com/muumuu-domain/terraform/terraform.tfstate | jq -r '.modules[].resources[].primary.attributes | [.access_ip_v4, .name] | @tsv' | grep muumuu-domain.com >> /tmp/hosts && cat /tmp/hosts | sort -k2 | peco | awk "{print \$1}")
+    rm /tmp/hosts
+    local ip=$(cat ~/.ghq/git.pepabo.com/muumuu-domain/terraform/terraform.tfstate | jq -r '.modules[].resources[].primary.attributes | [.access_ip_v4, .name] | @tsv' | grep -e muumuu-domain.com -e osaipo.jp >> /tmp/hosts && cat ~/.havana_hosts >> /tmp/hosts && cat /tmp/hosts | sort -k2 | peco | awk "{print \$1}")
     if [ -n "$ip" ]; then
-        local user=$(echo centos\\nmuu-deploy\\nlitencatt\\nnakamu\\napp | peco)
+        local user=$(echo litencatt\\nmuu-deploy\\ncentos\\nnakamu\\napp | peco)
         BUFFER="ssh $user@$ip"
         zle accept-line
     fi
@@ -220,3 +206,5 @@ function peco-ssh () {
 }
 zle -N peco-ssh
 bindkey '^\' peco-ssh
+
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

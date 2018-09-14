@@ -1,3 +1,6 @@
+# main viewの左端にコミットIDを表示する
+set main-view = id date author commit-title:graph=yes,refs=yes
+
 # 画面を垂直方向に分割する
 #set vertical-split = yes
 # 横分割に強制する

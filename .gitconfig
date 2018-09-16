@@ -1,0 +1,16 @@
+[user]
+	email = ncl0709@gmail.com
+	name = litencatt
+	id = litencatt
+[ghq]
+	root = ~/.ghq
+[merge]
+	tool = vimdiff
+[core]
+	excludesfile = /Users/nakamura.k/.gitignore_global
+	editor = vim -c \"set fenc=utf-8\"
+	pager = less
+[color]
+  ui = true
+[push]
+	default = current
